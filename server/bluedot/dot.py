@@ -816,7 +816,8 @@ class BlueDot(Dot):
         power_up_device = False,
         print_messages = True,
         cols = 1,
-        rows = 1):
+        rows = 1,
+        command_callback = None):
 
         self._data_buffer = ""
         self._device = device
@@ -830,6 +831,9 @@ class BlueDot(Dot):
         self._when_client_connects_background = False
         self._when_client_disconnects = None
         self._when_client_disconnects_background = False
+
+        # setup command callback to externally defined function
+        self._is_command = command_callback
 
         # setup the main "dot"
         super().__init__(BLUE, False, False, True)
@@ -1278,8 +1282,9 @@ class BlueDot(Dot):
             # debug - print each command
             print(command)
             
-            if (command.split(":")[0] == "CMD"):
-                print(command.split(":")[1].strip())
+            # message received is command for Pi and callback is defined
+            if (command.split(":")[0] == "CMD" and self._is_command is not None):
+                self._is_command(command.split(":")[1].strip())
             
             else:
                 operation = command.split(",")[0]
