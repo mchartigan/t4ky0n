@@ -7,6 +7,16 @@
     tools:context="com.stuffaboutcode.bluedot.Button">
 
     <TextView
+        android:id="@+id/power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Power Off"
+        app:layout_constraintEnd_toEndOf="@+id/matrix"
+        app:layout_constraintStart_toStartOf="@+id/matrix"
+        app:layout_constraintTop_toBottomOf="@+id/matrix" />
+
+    <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="17dp"
@@ -35,17 +45,18 @@
 
     <com.stuffaboutcode.bluedot.DynamicMatrix
         android:id="@+id/matrix"
-        android:layout_width="251dp"
-        android:layout_height="234dp"
+        android:layout_width="85dp"
+        android:layout_height="81dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         app:cols="1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086"
+        app:layout_constraintVertical_bias="0.033"
         app:rows="1" />
 
     <EditText
@@ -60,6 +71,9 @@
         android:ems="10"
         android:hint="@string/edit_command"
         android:inputType="textLongMessage"
+        android:textColorHighlight="@color/colorPrimary"
+        android:textColorLink="#000000"
+        android:textCursorDrawable="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/matrix" />

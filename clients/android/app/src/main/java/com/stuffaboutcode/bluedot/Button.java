@@ -153,7 +153,7 @@ public class Button extends AppCompatActivity {
     public void sendCommand(View view) {
         // get text from input and send to server
         EditText editText = (EditText) findViewById(R.id.editTextCommand);
-        send(editText.getText().toString());
+        send("CMD:" + editText.getText().toString() + "\n");
     }
 
     public void send(String message) {
