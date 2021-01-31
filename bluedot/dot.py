@@ -1277,43 +1277,47 @@ class BlueDot(Dot):
         for command in commands:
             # debug - print each command
             # print(command)
-
-            operation = command.split(",")[0]
-            params = command.split(",")[1:]
             
-            # dot change operation?
-            if operation in ["0", "1", "2"]:
-
-                position = None
-                try:
-                    button, position = self._parse_interaction_msg(operation, params)
-                    self._position = position
-                except ValueError:
-                    # warn about the occasional corrupt command
-                    warnings.warn("Data received which could not be parsed.\n{}".format(command))
-                except ButtonDoesNotExist:
-                    # data received for a button which could not be found
-                    warnings.warn("Data received for a button which does not exist.\n{}".format(command))
-                else:
-                    # dot released
-                    if operation == "0":
-                        self._process_release(button, position)
-                        
-                    # dot pressed
-                    elif operation == "1":
-                        self._process_press(button, position)
-                        
-                    # dot pressed position moved 
-                    elif operation == "2":
-                        self._process_move(button, position)
-                        
-            # protocol check
-            elif operation == "3":
-                self._check_protocol_version(params[0], params[1])
-
+            if (command.split(":")[0] == "CMD"):
+                print(command.split(":")[1].strip())
+            
             else:
-                # operation not identified...  
-                warnings.warn("Data received for an unknown operation.\n{}".format(command))
+                operation = command.split(",")[0]
+                params = command.split(",")[1:]
+                
+                # dot change operation?
+                if operation in ["0", "1", "2"]:
+
+                    position = None
+                    try:
+                        button, position = self._parse_interaction_msg(operation, params)
+                        self._position = position
+                    except ValueError:
+                        # warn about the occasional corrupt command
+                        warnings.warn("Data received which could not be parsed.\n{}".format(command))
+                    except ButtonDoesNotExist:
+                        # data received for a button which could not be found
+                        warnings.warn("Data received for a button which does not exist.\n{}".format(command))
+                    else:
+                        # dot released
+                        if operation == "0":
+                            self._process_release(button, position)
+                            
+                        # dot pressed
+                        elif operation == "1":
+                            self._process_press(button, position)
+                            
+                        # dot pressed position moved 
+                        elif operation == "2":
+                            self._process_move(button, position)
+                            
+                # protocol check
+                elif operation == "3":
+                    self._check_protocol_version(params[0], params[1])
+
+                else:
+                    # operation not identified...  
+                    warnings.warn("Data received for an unknown operation.\n{}".format(command))
 
     def _parse_interaction_msg(self, operation, params):
         """

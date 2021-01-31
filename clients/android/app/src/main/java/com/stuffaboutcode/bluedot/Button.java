@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
@@ -36,6 +37,8 @@ public class Button extends AppCompatActivity {
     private double last_y = 0;
 
     private DynamicMatrix matrix;
+
+    public static final String EXTRA_MESSAGE = "com.stuffaboutcode.bluedot.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +147,13 @@ public class Button extends AppCompatActivity {
 
     private String buildMessage(String operation, int col, int row, double x, double y) {
         return (operation + "," + String.valueOf(col) + "," + String.valueOf(row) + "," + String.valueOf(x) + "," + String.valueOf(y) + "\n");
+    }
+
+    /** Called when user taps send button **/
+    public void sendCommand(View view) {
+        // get text from input and send to server
+        EditText editText = (EditText) findViewById(R.id.editTextCommand);
+        send(editText.getText().toString());
     }
 
     public void send(String message) {
