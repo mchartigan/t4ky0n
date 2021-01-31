@@ -1276,7 +1276,7 @@ class BlueDot(Dot):
     def _process_commands(self, commands):
         for command in commands:
             # debug - print each command
-            # print(command)
+            print(command)
             
             if (command.split(":")[0] == "CMD"):
                 print(command.split(":")[1].strip())
