@@ -1280,7 +1280,7 @@ class BlueDot(Dot):
     def _process_commands(self, commands):
         for command in commands:
             # debug - print each command
-            print(command)
+            # print(command)
             
             # message received is command for Pi and callback is defined
             if (command.split(":")[0] == "CMD" and self._is_command is not None):
